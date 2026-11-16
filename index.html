@@ -378,6 +378,7 @@ canvas#sig{display:block;width:100%;height:150px;touch-action:none;cursor:crossh
 const LASSERS = ["Martin de Haan","Ronnie Terweij"];
 const BUISLEV = ["Wavin","George Fisher (GF)"];
 const REGIOS  = ["Noord-Holland","Zuid-Holland"];
+const HULPSTUKLEV = ["George Fisher (GF)","Frialen"];
 const LTHS    = ["Peter van Wichen","Roy van Vliet"];
 const LTH_MAIL = {
   "Peter van Wichen": "peter.van.wichen@alliander.com",
@@ -415,7 +416,7 @@ const TEXTFIELDS = [
   {id:"plaats",     n:7,  label:"Plaats",             type:"text",   req:true, proj:true},
   {id:"lth",        n:8,  label:"Naam LTH",           type:"select", req:true, proj:true, opts:LTHS, other:true},
   {id:"lthmail",    n:9,  label:"Mailadres LTH",      type:"email",  req:false, proj:true},
-  {id:"hulpstuk",   n:10, label:"Hulpstuk Leverancier",type:"select", req:true, opts:BUISLEV},
+  {id:"hulpstuk",   n:10, label:"Hulpstuk Leverancier",type:"select", req:true, opts:HULPSTUKLEV},
   {id:"lasnummer",  n:11, label:"Lasnummer",          type:"text",   req:false, hint:"De las waar dit borgingsdocument over gaat."}
 ];
 
