@@ -378,6 +378,11 @@ canvas#sig{display:block;width:100%;height:150px;touch-action:none;cursor:crossh
 const LASSERS = ["Martin de Haan","Ronnie Terweij"];
 const BUISLEV = ["Wavin","George Fisher (GF)"];
 const REGIOS  = ["Noord-Holland","Zuid-Holland"];
+const LTHS    = ["Peter van Wichen","Roy van Vliet"];
+const LTH_MAIL = {
+  "Peter van Wichen": "peter.van.wichen@alliander.com",
+  "Roy van Vliet":    "Roy.van.vliet@alliander.com"
+};
 
 const PHOTOS = [
   {key:"A", label:"Foto A", desc:"De werkplek inclusief de mogelijke voorzorgsmaatregelen."},
@@ -408,9 +413,9 @@ const TEXTFIELDS = [
   {id:"regio",      n:5,  label:"Regio",              type:"select", req:true, proj:true, opts:REGIOS},
   {id:"adres",      n:6,  label:"Adres",              type:"text",   req:true, proj:true, ph:"straat + huisnummer"},
   {id:"plaats",     n:7,  label:"Plaats",             type:"text",   req:true, proj:true},
-  {id:"lth",        n:8,  label:"Naam LTH",           type:"text",   req:true, proj:true},
+  {id:"lth",        n:8,  label:"Naam LTH",           type:"select", req:true, proj:true, opts:LTHS, other:true},
   {id:"lthmail",    n:9,  label:"Mailadres LTH",      type:"email",  req:false, proj:true},
-  {id:"hulpstuk",   n:10, label:"Hulpstuk Leverancier",type:"text",  req:true},
+  {id:"hulpstuk",   n:10, label:"Hulpstuk Leverancier",type:"select", req:true, opts:BUISLEV},
   {id:"lasnummer",  n:11, label:"Lasnummer",          type:"text",   req:false, hint:"De las waar dit borgingsdocument over gaat."}
 ];
 
@@ -1695,6 +1700,15 @@ document.addEventListener("input", e => {
       model[f] = t.value;
       const oth = document.querySelector(`[data-f="${f}"][data-other]`);
       if(oth){ oth.style.display = "none"; oth.value = ""; }
+    }
+    // LTH gekozen: mailadres automatisch invullen (of wissen bij "Anders…")
+    if(f === "lth"){
+      const known = Object.values(LTH_MAIL);
+      const mail = LTH_MAIL[model.lth];
+      if(mail) model.lthmail = mail;
+      else if(known.indexOf(model.lthmail) >= 0) model.lthmail = "";
+      const mi = document.querySelector('[data-f="lthmail"]');
+      if(mi) mi.value = model.lthmail || "";
     }
   }else{
     model[f] = t.value;
