@@ -341,8 +341,8 @@ canvas#sig{display:block;width:100%;height:150px;touch-action:none;cursor:crossh
     <h3>PDF's klaar</h3>
     <p class="mfile" id="mFile"></p>
     <div id="mShareBox" hidden>
-      <p class="mtxt">Tik op <strong>Mailen met PDF's</strong> en kies je mail-app (Mail, Outlook, Gmail). Alle PDF's (Bijlage 4 per las en Bijlage 5) zitten er dan al als losse bijlagen in. Het adres <code>beproevingen@mookbv.nl</code> staat op je klembord: plak het in het Aan-veld.</p>
-      <button class="btn primary" id="mShare" style="width:100%">Mailen met PDF's</button>
+      <p class="mtxt">Tik op <strong>Verstuur e-mail</strong> en kies je mail-app (Mail, Outlook, Gmail). Alle PDF's (Bijlage 4 per las en Bijlage 5) zitten er dan al als losse bijlagen in. Het adres <code>beproevingen@mookbv.nl</code> staat op je klembord: plak het in het Aan-veld.</p>
+      <button class="btn primary" id="mShare" style="width:100%">Verstuur e-mail</button>
       <div class="mrow"><button class="lnk" id="mSaveToo">PDF's ook op dit apparaat opslaan</button><button class="lnk" id="mUseMailto">Andere manier</button></div>
     </div>
     <div id="mMailtoBox">
@@ -922,8 +922,7 @@ function renderForm(){
     ? `<button class="btn ghost" id="btnSave">${editingId ? "Wijzigingen opslaan" : "Ook in archief bewaren"}</button>`
     : "";
   $("#actionbarInner").innerHTML =
-    `<button class="btn primary" id="btnMailDirect">PDF's maken &amp; mailen</button>
-     <button class="btn ghost" id="btnPdfOnly">Alleen PDF's opslaan</button>
+    `<button class="btn primary" id="btnMailDirect">Verzenden formulier</button>
      ${archiefBtn}
      <button class="btn ghost" id="btnReset">${editingId ? "Annuleer" : "Leeg"}</button>`;
   $("#actionbar").style.display = "block";
@@ -970,7 +969,7 @@ function renderDetail(){
 
   $("#app").innerHTML =
     `<div class="toolbar"><button class="btn" id="btnBack">← Archief</button>
-      <button class="btn primary" id="btnMailRec" style="margin-left:auto">PDF's maken &amp; mailen</button>
+      <button class="btn primary" id="btnMailRec" style="margin-left:auto">Verzenden formulier</button>
       <button class="btn ghost" id="btnEdit">Bewerken</button>
       <button class="btn ghost" id="btnPdfRecOnly">PDF's opslaan</button>
       <button class="btn ghost" id="btnDel" style="color:var(--danger);border-color:var(--danger)">Verwijderen</button></div>
@@ -1160,7 +1159,7 @@ async function save(){
       editingId = null; model = blankModel(); sigDirty = false; sigData = null;
       detail = Object.assign({__id: ref.id, __path: "lassen/"+myUid+"/forms/"+ref.id}, body);
       view = "detail"; render();
-      flash("Formulier opgeslagen in het archief. Klik hieronder om de PDF te maken en te mailen.", "ok", 6000);
+      flash("Formulier opgeslagen in het archief. Klik hieronder op Verzenden formulier om het te versturen.", "ok", 6000);
     }
   }catch(err){
     flash("Opslaan mislukt" + (err && err.code ? ` (${err.code})` : "") + ". Probeer opnieuw.", "err", 6000);
@@ -1602,7 +1601,7 @@ async function showMailtoMode(){
   $("#mShareBox").hidden = true; $("#mMailtoBox").hidden = false;
   const n = await savePending();
   if(n === 0 && lastSaveDeclined < pending.items.length){ await showImageMode(); return; }
-  if(n < pending.items.length) flash(n ? `${n} van de ${pending.items.length} PDF's opgeslagen. Probeer 'Alleen PDF's opslaan' opnieuw.` : "PDF's opslaan lukte niet.", "err", 6000);
+  if(n < pending.items.length) flash(n ? `${n} van de ${pending.items.length} PDF's opgeslagen. Probeer 'Verzenden formulier' opnieuw.` : "PDF's opslaan lukte niet.", "err", 6000);
 }
 function sharePending(){
   if(!pending) return;
